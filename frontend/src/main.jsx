@@ -8,6 +8,7 @@ import { extendTheme } from "@chakra-ui/theme-utils";
 import { ColorModeScript } from "@chakra-ui/color-mode";
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { SocketContextProvider } from './context/SocketContext.jsx';
 
 const styles ={
   global:(props)=>({
@@ -41,11 +42,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
     <ChakraProvider theme={theme}>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-
+    <SocketContextProvider>
+      
     <App />
+    </SocketContextProvider>
     </ChakraProvider>
     </BrowserRouter>
     </RecoilRoot>
       
-   </React.StrictMode>,
+   </React.StrictMode>
 )

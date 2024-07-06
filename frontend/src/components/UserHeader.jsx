@@ -11,12 +11,12 @@ import { useRecoilValue } from "recoil"
 import {Link as RouterLink} from "react-router-dom"
 import { useState } from "react"
 import useShowToast from "../hooks/useShowToast"
+import useFollowUnfollow from "../hooks/useFollowUnfollow"
 
 const UserHeader = ({user}) => {
     const toast = useToast()
     const currentUser = useRecoilValue(userAtom) //this is the user that logged in
-    const[following,setFollowing] = useState(user.followers.includes(currentUser._id))
-    console.log(following)
+    const{handleFollowUnfollow,following,updating}=useFollowUnfollow(user)
     const copyUrl =() =>{
         const currentURL = window.location.href;
         navigator.clipboard.writeText(currentURL).then(()=>{
@@ -29,13 +29,7 @@ const UserHeader = ({user}) => {
               })
         })
     }
-    const handleFollowUnfollow = async() =>{
-        try {
-            
-        } catch (error) {
-            useShowToast("Error",error,"error")
-        }
-    }
+    
   return (
     <VStack gap={4} alignItems={"start"}>
         
@@ -81,14 +75,14 @@ const UserHeader = ({user}) => {
         <Text>
             {user.bio} 
         </Text>
-        {currentUser._id === user._id && (
+        {currentUser?._id === user._id && (
             <Link as={RouterLink} to='/update'>
                 <Button size ={"sm"}>Update Profile</Button>
             </Link>
         )}
-        {currentUser._id !== user._id && (
+        {currentUser?._id !== user._id && (
             
-                <Button size ={"sm"} onClick={handleFollowUnfollow}>
+                <Button size ={"sm"} onClick={handleFollowUnfollow} isLoading={updating}>
                     {following ? "Unfollow" : "Follow"}
                 </Button>
             

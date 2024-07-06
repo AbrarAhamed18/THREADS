@@ -14,12 +14,17 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "date-fns": "^3.6.0",
     "framer-motion": "^6.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.23.1",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "socket-client": "^1.0.0",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "web": "^0.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
