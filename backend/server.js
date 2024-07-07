@@ -16,6 +16,7 @@ import {app,server} from "./socket/socket.js"
 dotenv.config();
 
 connectDB();
+job.start()
 
 const PORT = process.env.PORT || 3000;
 const __dirname = path.resolve()
