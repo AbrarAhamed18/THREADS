@@ -18,6 +18,7 @@ const UserPage = () => {
   useEffect(()=> {
     
     const getPosts = async()=>{
+      if(!user) return
       setFetchingPosts(true)
       try {
         const res = await fetch(`/api/posts/user/${username}`)
@@ -33,8 +34,7 @@ const UserPage = () => {
     }
     
     getPosts()
-  },[username,showToast,setPosts])
-  console.log("posts is here and it is recoil state",posts);
+  },[username,showToast,setPosts,user])
   if(!user && loading){
     return (
       <Flex justifyContent={"center"}>
