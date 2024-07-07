@@ -4,7 +4,7 @@ import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 
 
-export const SettingsPage = () => {
+const SettingsPage = () => {
 	const showToast = useShowToast();
 	const logout = useLogout();
 
@@ -42,3 +42,5 @@ export const SettingsPage = () => {
 		</>
 	);
 };
+
+export default SettingsPage;
