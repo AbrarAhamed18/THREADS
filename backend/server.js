@@ -1,50 +1,50 @@
-import express from 'express';
+import express from "express";
 import dotenv from "dotenv";
-import connectDB from './db/connectDB.js';
-import cookieParser from 'cookie-parser';
-import path from 'path';
+import connectDB from "./db/connectDB.js";
+import cookieParser from "cookie-parser";
+import path from "path";
 
-import userRoutes from './routes/userRoutes.js'
-import postRoutes from './routes/postRoutes.js'
-import messageRoutes from './routes/messageRoutes.js'
+import userRoutes from "./routes/userRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 
-
-import{v2 as cloudinary} from "cloudinary"
-import {app,server} from "./socket/socket.js"
-import job from './cron/cron.js';
-
+import { v2 as cloudinary } from "cloudinary";
+import { app, server } from "./socket/socket.js";
+import job from "./cron/cron.js";
 
 dotenv.config();
 
 connectDB();
-job.start()
+job.start();
 
 const PORT = process.env.PORT || 3000;
-const __dirname = path.resolve()
+const __dirname = path.resolve();
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 //MiddleWare
-app.use(express.json({limit:"50mb"})); //to call middleware it parses the incoming data to the body 
-app.use(express.urlencoded({extended:true}));//to parse form data in body 
+app.use(express.json({ limit: "50mb" })); //to call middleware it parses the incoming data to the body
+app.use(express.urlencoded({ extended: true })); //to parse form data in body
 app.use(cookieParser());
 
 //Routes
-app.use("/api/users",userRoutes)
-app.use("/api/posts",postRoutes)
-app.use("/api/messages",messageRoutes)
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/messages", messageRoutes);
 
 //http://127.0.0.1:5000,5000 => frontend,backen
 //http://localhost:3000 => backend
 
-if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,"/frontend/dist")))
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-    app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname,"frontend","dist","index.html"))
-    })
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
 }
 
-server.listen(PORT, () => console.log(`Server started at http://localhost:${PORT}`));
+server.listen(PORT, () =>
+  console.log(`Server started at http://localhost:${PORT}`)
+);
